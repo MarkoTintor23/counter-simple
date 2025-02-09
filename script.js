@@ -1,28 +1,46 @@
-const resetNumber = document.querySelector("#reset");
-const decreaseNumber = document.querySelector("#decrease");
-const increaseNumber = document.querySelector("#increase");
-const counterNumber = document.querySelector("#counter");
+document.addEventListener("DOMContentLoaded", () => {
+  new Counter();
+});
+class Counter {
+  constructor() {
+    this.resetNumber = document.querySelector("#reset");
+    this.decreaseNumber = document.querySelector("#decrease");
+    this.increaseNumber = document.querySelector("#increase");
+    this.counterNumber = document.querySelector("#counter");
 
-const colorChange = function () {
-  if (parseInt(counterNumber.textContent) < 0) {
-    counterNumber.style.color = "red";
-  } else if (parseInt(counterNumber.textContent) > 0) {
-    counterNumber.style.color = "green";
-  } else {
-    counterNumber.style.color = "white";
+    this.addEventListeners();
   }
-};
 
-increaseNumber.addEventListener("click", function () {
-  counterNumber.textContent++;
-  colorChange();
-});
-decreaseNumber.addEventListener("click", function () {
-  counterNumber.textContent--;
-  colorChange();
-});
+  colorChange() {
+    if (parseInt(this.counterNumber.textContent) < 0) {
+      this.counterNumber.style.color = "red";
+    } else if (parseInt(this.counterNumber.textContent) > 0) {
+      this.counterNumber.style.color = "green";
+    } else {
+      this.counterNumber.style.color = "white";
+    }
+  }
 
-resetNumber.addEventListener("click", function () {
-  counterNumber.textContent = 0;
-  counterNumber.style.color = "white";
-});
+  addEventListeners() {
+    this.increaseNumber.addEventListener("click", () => this.handleIncrease());
+    this.decreaseNumber.addEventListener("click", () => this.handleDecrease());
+    this.resetNumber.addEventListener("click", () => this.handleReset());
+  }
+
+  handleIncrease() {
+    this.counterNumber.textContent =
+      parseInt(this.counterNumber.textContent) + 1;
+    this.colorChange();
+  }
+
+  handleDecrease() {
+    this.counterNumber.textContent =
+      parseInt(this.counterNumber.textContent) - 1;
+    this.colorChange();
+  }
+
+  handleReset() {
+    this.counterNumber.textContent = 0;
+    this.counterNumber.style.color = "white";
+  }
+}
